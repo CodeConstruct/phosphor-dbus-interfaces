@@ -75,6 +75,14 @@ properties:
       default: false
       description: >
           Indicates whether the LUKS volume is locked.
+    - name: Size
+      type: uint64
+      description: >
+          The allocated size of the volume in bytes.
+    - name: BlockSize
+      type: size
+      description: >
+          The currently used block size, in bytes.
 
 enumerations:
     - name: EraseMethod

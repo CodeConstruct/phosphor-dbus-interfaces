@@ -1,2 +1,35 @@
 description: >
     Implement to provide storage controller attributes.
+
+methods:
+    - name: AttachVolume
+      description: >
+          Attach a volume to the controller
+      parameters:
+          - name: Path
+            type: object_path
+            description: >
+                Path of the volume
+      errors:
+          - xyz.openbmc_project.Common.Error.ResourceNotFound
+          - xyz.openbmc_project.Common.Error.InternalFailure
+
+    - name: DetachVolume
+      description: >
+          Detach a volume from the controller
+      parameters:
+          - name: Path
+            type: object_path
+            description: >
+                Path of the volume
+      errors:
+          - xyz.openbmc_project.Common.Error.ResourceNotFound
+          - xyz.openbmc_project.Common.Error.InternalFailure
+
+associations:
+    - name: attaching
+      description: >
+          A StorageController may have attached Volume objects.
+      reverse_names: attached_to
+      required_endpoint_interfaces:
+          - xyz.openbmc_project.Inventory.Item.Volume
