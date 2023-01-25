@@ -1,0 +1,61 @@
+description: >
+    NVMe-specific details of a Storage object.
+methods:
+    - name: CreateVolume
+      description: >
+          Create a Volume (NVMe Namespace). This returns immediately, the
+          creation completion can be monitored on the returned path.
+      parameters:
+          - name: Size
+            type: uint64
+            description: >
+                Size of the new volume in bytes
+          - name: LBAFormat
+            type: size
+            description: >
+                The index value of the LBA Format to use for the new namespace,
+                from SupportedFormats property.
+          - name: MetadataAtEnd
+            type: boolean
+            description: >
+                Indicates that the metadata is transferred at the end of the
+                data LBA. This is bit 4 of the NVMe FLBAS field.
+
+      returns:
+          - name: InProgress
+            type: object_path
+            description: >
+                Returned to indicate that the CreateVolume operation is
+                continuing in the background. The path implements
+                xyz.openbmc_project.Common.Progress and can be polled to
+                determine when the operation has completed. After completion it
+                will also implement either CreateVolumeProgressSuccess or
+                CreateVolumeProgressFailure with the result.
+
+properties:
+    - name: SupportedFormats
+      type: array[struct[size, size, size, enum[self.RelativePerformance]]]
+      description: >
+          Returns structs of (index, data_size, metadata_size, rp), the list of
+          formats reported by LBA Format in the Identify Namespace structure for
+          NSID 0 (common to all namespaces). The index field can be used as the
+          .CreateVolume LBAFormat parameter.
+
+enumerations:
+    - name: RelativePerformance
+      description: >
+          Relative performance of a LBA format type. Corresponds to the NVMe RP
+          field.
+      values:
+          - name: Best
+          - name: Better
+          - name: Good
+          - name: Degraded
+
+associations:
+    - name: awaiting
+      description: >
+          Progress for a CreateVolume operation
+      reverse_names: awaited
+      required_endpoint_interfaces:
+          - xyz.openbmc_project.Common.Progress

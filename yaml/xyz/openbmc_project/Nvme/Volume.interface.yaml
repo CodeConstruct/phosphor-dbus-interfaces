@@ -1,0 +1,18 @@
+description: >
+    Details of a Volume that is a NVMe namespace.
+properties:
+    - name: NamespaceId
+      type: uint32
+      description: >
+          The NVMe Namespace Id (NSID)
+
+    - name: LBAFormat
+      type: size
+      description: >
+          Used LBA Format index
+
+    - name: MetadataAtEnd
+      type: boolean
+      description: >
+          Whether metadata is transferred at the end of the data LBA. This
+          corresponds to FLBAS bit 4.
