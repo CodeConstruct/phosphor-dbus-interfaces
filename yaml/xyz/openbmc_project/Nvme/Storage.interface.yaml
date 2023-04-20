@@ -3,7 +3,8 @@ description: >
 methods:
     - name: CreateVolume
       description: >
-          Create a Volume (NVMe Namespace)
+          Create a Volume (NVMe Namespace). This returns immediately,
+          the creation completion can be monitored on the returned path.
       parameters:
           - name: Size
             type: uint64
@@ -14,14 +15,23 @@ methods:
             description: >
                 The index value of the LBA Format to use for the new namespace,
                 from SupportedFormats property.
-      errors:
-          - xyz.openbmc_project.Common.Error.TooManyResources
-          - xyz.openbmc_project.Common.Error.InvalidArgument
+          - name: MetadataAtEnd
+            type: boolean
+            description: >
+                Indicates that the metadata is transferred at the end of the data LBA.
+                This is bit 4 of the NVMe FLBAS field.
+
       returns:
-          - name: path
+          - name: InProgress
             type: object_path
             description: >
-                Path of the Volume object which has been created.
+                Returned to indicate that the CreateVolume operation is
+                continuing in the background. The path implements
+                xyz.openbmc_project.Common.Progress and can be polled
+                to determine when the operation has completed.
+                After completion it will also implement either
+                CreateVolumeProgressSuccess or CreateVolumeProgressFailure
+                with the result.
 
 properties:
     - name: SupportedFormats
@@ -33,3 +43,10 @@ properties:
           The index field can be used as the .CreateVolume LBAFormat
           parameter.
 
+associations:
+    - name: progress_create
+      description: >
+          Progress for a CreateVolume operation
+      reverse_names: create_from
+      required_endpoint_interfaces:
+          - xyz.openbmc_project.NVMe.CreateVolumeProgress

@@ -1,0 +1,56 @@
+description: >
+    NVMe-specific drive state management
+methods:
+    - name: Sanitize
+      description: >
+          Erases all storage user data. This is performed asynchronously, callers can wait
+          for a SanitizeCompletion signal.
+      parameters:
+          - name: SanitizeAction
+            type: enum[self.SanitizeActions]
+      returns:
+          - name: CallToken
+            type: uint64
+            description: >
+                An opaque identifier for this request, to match with SanitizeCompletion signal.
+      errors:
+          - self.Error.NotSingleStorage
+          - self.Error.FirmwareActivationPending
+          - self.Error.NamespaceWriteProtected
+          - self.Error.ProhibitedPersistentMemory
+          - self.Error.DeviceError
+
+properties:
+    - name: SanitizeInProgress
+      type: boolean
+      description: >
+          Indicates that a Sanitize operation is in progress.
+
+    - name: SanitizeError
+      type: string
+      description: >
+          Indicates that the last Sanitize method failed.
+
+    - name: SanitizeProgress
+      type: double
+      description: >
+          Indicates the percentage completed of a Sanitize. Based on
+          the NVMe Sanitize Status Log SPROG value, converted to a range 
+          0.0 to 1.0. Only valid when SanitizeInProgress = true, will be
+          set to 0.0 otherwise.
+
+enumerations:
+    - name: SanitizeActions
+      description: >
+          The type of NVMe Controller
+      values:
+          - name: BlockErase
+            description: >
+                Low-level block erase
+          - name: CryptoErase
+            description: >
+                Erase by changing encryption keys
+          - name: Overwrite
+            description: >
+                Erase by writing over media
+

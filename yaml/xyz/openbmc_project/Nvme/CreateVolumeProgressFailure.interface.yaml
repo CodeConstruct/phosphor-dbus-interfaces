@@ -1,0 +1,13 @@
+description: >
+    A failed CreateVolume operation from a
+    xyz.openbmc_project.NVMe.Storage object.
+
+properties:
+    - name: ErrorName
+      type: string
+      description: >
+          The error returned
+    - name: ErrorDescription
+      type: string
+      description: >
+          A description of the failure

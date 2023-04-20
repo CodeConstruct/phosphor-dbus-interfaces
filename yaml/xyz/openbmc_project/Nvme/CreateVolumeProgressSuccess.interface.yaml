@@ -1,0 +1,9 @@
+description: >
+    A successful CreateVolume operation from a
+    xyz.openbmc_project.NVMe.Storage object.
+
+properties:
+    - name: VolumePath
+      type: object_path
+      description: >
+          Set to the created Volume path once the operation successfully completes.

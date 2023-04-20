@@ -1,0 +1,22 @@
+- name: NotSingleStorage
+  description: >
+      A sanitize operation can only be applied to a Drive that is a 
+      single member of a Storage subsystem. This corresponds to a Simple SSD
+      model of Swordfish NVMe Mapping.
+
+- name: FirmwareActivationPending
+  description: >
+      The sanitize operation could not be started because a firmware activation is pending.
+
+- name: NamespaceWriteProtected
+  description: >
+      The sanitize operation is prohibited while the namespace is write protected.
+
+- name: ProhibitedPersistentMemory
+  description: >
+      The sanitize operation is prohibited while the Persistent Memory Region is enabled.
+
+- name: DeviceError
+  description: >
+      An error was returned from the NVMe device
+

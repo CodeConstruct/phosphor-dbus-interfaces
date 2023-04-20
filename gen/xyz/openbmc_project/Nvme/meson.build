@@ -14,6 +14,51 @@ generated_others += custom_target(
     ],
 )
 
+subdir('CreateVolumeProgressFailure')
+generated_others += custom_target(
+    'xyz/openbmc_project/Nvme/CreateVolumeProgressFailure__markdown'.underscorify(),
+    input: [ '../../../../yaml/xyz/openbmc_project/Nvme/CreateVolumeProgressFailure.interface.yaml',  ],
+    output: [ 'CreateVolumeProgressFailure.md' ],
+    depend_files: sdbusplusplus_depfiles,
+    command: [
+        sdbuspp_gen_meson_prog, '--command', 'markdown',
+        '--output', meson.current_build_dir(),
+        '--tool', sdbusplusplus_prog,
+        '--directory', meson.current_source_dir() / '../../../../yaml',
+        'xyz/openbmc_project/Nvme/CreateVolumeProgressFailure',
+    ],
+)
+
+subdir('CreateVolumeProgressSuccess')
+generated_others += custom_target(
+    'xyz/openbmc_project/Nvme/CreateVolumeProgressSuccess__markdown'.underscorify(),
+    input: [ '../../../../yaml/xyz/openbmc_project/Nvme/CreateVolumeProgressSuccess.interface.yaml',  ],
+    output: [ 'CreateVolumeProgressSuccess.md' ],
+    depend_files: sdbusplusplus_depfiles,
+    command: [
+        sdbuspp_gen_meson_prog, '--command', 'markdown',
+        '--output', meson.current_build_dir(),
+        '--tool', sdbusplusplus_prog,
+        '--directory', meson.current_source_dir() / '../../../../yaml',
+        'xyz/openbmc_project/Nvme/CreateVolumeProgressSuccess',
+    ],
+)
+
+subdir('Drive')
+generated_others += custom_target(
+    'xyz/openbmc_project/Nvme/Drive__markdown'.underscorify(),
+    input: [ '../../../../yaml/xyz/openbmc_project/Nvme/Drive.interface.yaml',  ],
+    output: [ 'Drive.md' ],
+    depend_files: sdbusplusplus_depfiles,
+    command: [
+        sdbuspp_gen_meson_prog, '--command', 'markdown',
+        '--output', meson.current_build_dir(),
+        '--tool', sdbusplusplus_prog,
+        '--directory', meson.current_source_dir() / '../../../../yaml',
+        'xyz/openbmc_project/Nvme/Drive',
+    ],
+)
+
 subdir('Status')
 generated_others += custom_target(
     'xyz/openbmc_project/Nvme/Status__markdown'.underscorify(),
