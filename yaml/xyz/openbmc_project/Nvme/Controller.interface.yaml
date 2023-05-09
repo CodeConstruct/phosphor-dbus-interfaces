@@ -30,3 +30,11 @@ enumerations:
           - name: Unknown
             description: >
                 Other values
+
+associations:
+    - name: attaching
+      description: >
+          Attached volumes
+      reverse_names: attached
+      required_endpoint_interfaces:
+          - xyz.openbmc_project.Nvme.Volume
