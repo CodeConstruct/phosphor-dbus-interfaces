@@ -44,9 +44,16 @@ properties:
           parameter.
 
 associations:
-    - name: progress_create
+    - name: awaiting
       description: >
           Progress for a CreateVolume operation
-      reverse_names: create_from
+      reverse_names: awaited
       required_endpoint_interfaces:
-          - xyz.openbmc_project.NVMe.CreateVolumeProgress
+          - xyz.openbmc_project.Common.Progress
+
+    - name: containing
+      description: >
+          Associated volumes
+      reverse_names: contained
+      required_endpoint_interfaces:
+          - xyz.openbmc_project.Nvme.Volume
