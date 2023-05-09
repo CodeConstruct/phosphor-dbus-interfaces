@@ -5,3 +5,7 @@ properties:
       type: uint32
       description: >
           The NVMe Namespace Id (NSID)
+    - name: LBAFormat
+      type: size
+      description: >
+          Used LBA Format
