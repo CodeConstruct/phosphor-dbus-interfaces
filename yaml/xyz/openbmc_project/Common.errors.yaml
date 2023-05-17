@@ -18,3 +18,5 @@
   description: The service is temporarily unavailable.
 - name: UnsupportedRequest
   description: The request is unsupported.
+- name: DeviceOperationFailed
+  description: A hardware device failed to perform an operation.
