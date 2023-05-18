@@ -1,0 +1,57 @@
+description: >
+    NVMe-specific drive state management
+methods:
+    - name: Erase
+      description: >
+          Erases all storage user data. This is performed asynchronously,
+          callers can wait for the EraseInProgress property. An error may be
+          returned immediately, or after the erase completes.
+
+      parameters:
+          - name: Action
+            type: enum[self.EraseAction]
+      errors:
+          - xyz.openbmc_project.Common.Error.NotAllowed
+          - xyz.openbmc_project.Common.Error.UnsupportedRequest
+          - xyz.openbmc_project.Common.Error.Unavailable
+          - xyz.openbmc_project.Common.Error.DeviceOperationFailed
+
+properties:
+    - name: EraseInProgress
+      type: boolean
+      description: >
+          Indicates that an Erase operation is in progress.
+
+    - name: ErrorName
+      type: string
+      description: >
+          Indicates that the last Erase method call failed, corresponds to an
+          error enum.
+
+    - name: ErrorDescription
+      type: string
+      description: >
+          Indicates that the last Erase method call failed, is a text
+          description.
+
+    - name: ErasePercentage
+      type: double
+      description: >
+          Indicates the percentage completed of a Sanitize, in the range 0.0 to
+          100.0 Only valid when SanitizeInProgress = true, will be set to 0.0
+          otherwise.
+
+enumerations:
+    - name: EraseAction
+      description: >
+          The action to perform
+      values:
+          - name: BlockErase
+            description: >
+                Low-level block erase
+          - name: CryptoErase
+            description: >
+                Erase by changing encryption keys
+          - name: Overwrite
+            description: >
+                Erase by writing over media
